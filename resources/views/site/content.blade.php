@@ -1,108 +1,84 @@
-<section id="hero_section" class="top_cont_outer">
-  <div class="hero_wrapper">
+
+@if( isset( $pages ) && is_object( $pages )  )
+  @foreach( $pages as $k=>$page )
+    @if( $k % 2 == 0 )
+      <section id="home" class="top_cont_outer">
+        <div class="hero_wrapper">
+          <div class="container">
+            <div class="hero_section">
+              <div class="row">
+                <div class="col-lg-5 col-sm-7">
+                  <div class="top_left_cont zoomIn wow animated">
+                   {!! $page->text !!}
+                    <a href="{{ route('page',['alias'=>$page->alias]) }}" class="read_more2">Read more</a>
+                  </div>
+                </div>
+                <div class="col-lg-7 col-sm-5">
+                  {!! Html::image('img/'.$page->images) !!}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--Hero_Section-->
+    @else
+      <section id="aboutUs"><!--Aboutus-->
+        <div class="inner_wrapper">
+          <div class="container">
+            <h2>{{ $page->name }}</h2>
+            <div class="inner_section">
+              <div class="row">
+                <div class=" col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-right">
+                  {!! Html::image('img/'.$page->images, '', ['class'=>'img-circle delay-03s animated wow zoomIn']) !!}
+                </div>
+                <div class=" col-lg-7 col-md-7 col-sm-7 col-xs-12 pull-left">
+                  <div class=" delay-01s animated fadeInDown wow animated">
+                    {!! $page->text !!}
+                  </div>
+                  <div class="work_bottom"> <span>Want to know more..</span> <a href="{{ route('page',['alias'=> $page->alias]) }}" class="contact_btn">Contact Us</a> </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--Aboutus-->
+    @endif
+  @endforeach
+@endif
+
+@if( isset( $services ) && is_object( $services ) ) 
+  <!--Service-->
+  <section  id="service">
     <div class="container">
-      <div class="hero_section">
-        <div class="row">
-          <div class="col-lg-5 col-sm-7">
-            <div class="top_left_cont zoomIn wow animated"> 
-              <h2>We create <strong>awesome</strong> web templates</h2>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text  printer took a galley of type and scrambled it to make a type specimen.</p>
-              <a href="#service" class="read_more2">Read more</a> </div>
-          </div>
-          <div class="col-lg-7 col-sm-5">
-            <img src="{{ asset('img/main_device_image.png') }}" class="zoomIn wow animated" alt="" />
-          </div>
-        </div>
+      <h2>Services</h2>
+      <div class="service_wrapper">
+        @foreach($services as $k=>$service)
+          @if( $k == 0 || $k % 3 == 0 )
+            <div class="row {{ ($k != 0) ? 'borderTop' : '' }}">
+          @endif
+              <div class="col-lg-4 {{ ($k % 3 > 0) ? 'borderLeft' : ''}} {{ ($k > 2) ? 'mrgTop' : '' }}">
+                <div class="service_block">
+                  <div class="service_icon delay-03s animated wow  zoomIn"> 
+                    <span><i class="fa {{ $service->icon }}"></i></span> 
+                  </div>
+                  <h3 class="animated fadeInUp wow">{{$service->name}}</h3>
+                  <p class="animated fadeInDown wow">{{$service->text}}</p>
+                </div>
+              </div>
+              @if(($k + 1)%3 == 0)
+            </div>
+              @endif
+        @endforeach
       </div>
     </div>
-  </div>
-</section>
-<!--Hero_Section--> 
-
-<section id="aboutUs"><!--Aboutus-->
-<div class="inner_wrapper">
-  <div class="container">
-    <h2>About Us</h2>
-    <div class="inner_section">
-    <div class="row">
-      <div class=" col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-right"><img src="{{ asset('img/about-img.jpg') }}" class="img-circle delay-03s animated wow zoomIn" alt=""></div>
-        <div class=" col-lg-7 col-md-7 col-sm-7 col-xs-12 pull-left">
-            <div class=" delay-01s animated fadeInDown wow animated">
-            <h3>Lorem Ipsum has been the industry's standard dummy text ever..</h3><br/> 
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.PageMaker including versions of Lorem Ipsum.</p> <br/>
-<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged like Aldus PageMaker including versions of Lorem Ipsum.</p>
-</div>
-<div class="work_bottom"> <span>Want to know more..</span> <a href="#contact" class="contact_btn">Contact Us</a> </div>       
-       </div>
-        
-      </div>
-      
-      
-    </div>
-  </div> 
-  </div>
-</section>
-<!--Aboutus--> 
+  </section>
+  <!--Service-->
+@endif
 
 
-<!--Service-->
-<section  id="service">
-  <div class="container">
-    <h2>Services</h2>
-    <div class="service_wrapper">
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="service_block">
-            <div class="service_icon delay-03s animated wow  zoomIn"> <span><i class="fa fa-android"></i></span> </div>
-            <h3 class="animated fadeInUp wow">Android</h3>
-            <p class="animated fadeInDown wow">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</p>
-          </div>
-        </div>
-        <div class="col-lg-4 borderLeft">           
-          <div class="service_block">
-            <div class="service_icon icon2  delay-03s animated wow zoomIn"> <span><i class="fa fa-apple"></i></span> </div>
-            <h3 class="animated fadeInUp wow">Apple IOS</h3>
-            <p class="animated fadeInDown wow">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</p>
-          </div>
-        </div>
-        <div class="col-lg-4 borderLeft">
-          <div class="service_block">
-            <div class="service_icon icon3  delay-03s animated wow zoomIn"> <span><i class="fa fa-html5"></i></span> </div>
-            <h3 class="animated fadeInUp wow">Design</h3>
-            <p class="animated fadeInDown wow">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</p>
-          </div>
-        </div>
-      </div>
-       <div class="row borderTop">
-        <div class="col-lg-4 mrgTop">
-          <div class="service_block">
-            <div class="service_icon delay-03s animated wow  zoomIn"> <span><i class="fa fa-dropbox"></i></span> </div>
-            <h3 class="animated fadeInUp wow">Concept</h3>
-            <p class="animated fadeInDown wow">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</p>
-          </div>
-        </div>
-        <div class="col-lg-4 borderLeft mrgTop">
-          <div class="service_block">
-            <div class="service_icon icon2  delay-03s animated wow zoomIn"> <span><i class="fa fa-slack"></i></span> </div>
-            <h3 class="animated fadeInUp wow">User Research</h3>
-            <p class="animated fadeInDown wow">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</p>
-          </div>
-        </div>
-        <div class="col-lg-4 borderLeft mrgTop">
-          <div class="service_block">
-            <div class="service_icon icon3  delay-03s animated wow zoomIn"> <span><i class="fa fa-users"></i></span> </div>
-            <h3 class="animated fadeInUp wow">User Experience</h3>
-            <p class="animated fadeInDown wow">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!--Service-->
-
-
-
+@if( isset($partfolios) && is_object($partfolios) )
 
 <!-- Portfolio -->
 <section id="Portfolio" class="content"> 
@@ -123,121 +99,44 @@
   
   <!-- Portfolio Filters -->
   <div class="portfolio"> 
+    @if( isset($tags) && is_object($tags) )
     
+    @endif
     <div id="filters" class="sixteen columns">
       <ul class="clearfix">
+        
         <li><a id="all" href="#" data-filter="*" class="active">
           <h5>All</h5>
-          </a></li>
-        <li><a class="" href="#" data-filter=".prototype">
-          <h5>Prototype</h5>
-          </a></li>
-        <li><a class="" href="#" data-filter=".design">
-          <h5>Design</h5>
-          </a></li>
-        <li><a class="" href="#" data-filter=".android">
-          <h5>Android</h5>
-          </a></li>
-        <li><a class="" href="#" data-filter=".appleIOS">
-          <h5>Apple IOS</h5>
-          </a></li>
-        <li><a class="" href="#" data-filter=".web">
-          <h5>Web App</h5>
-          </a></li>
+          </a>
+        </li>
+        @foreach($tags as $tag)
+        <li><a id="all" href="#" data-filter=".{{$tag}}" class="">
+          <h5>{{$tag}}</h5>
+          </a>
+        </li>
+        @endforeach
       </ul>
     </div>
     <!--/Portfolio Filters --> 
     
     <!-- Portfolio Wrapper -->
     <div class="isotope fadeInLeft animated wow" style="position: relative; overflow: hidden; height: 480px;" id="portfolio_wrapper"> 
-      
+
+      @foreach($partfolios as $item)
       <!-- Portfolio Item -->
-      <div style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1); width: 337px; opacity: 1;" class="portfolio-item one-four   appleIOS isotope-item">
-        <div class="portfolio_img"> <img src="img/portfolio_pic1.jpg"  alt="Portfolio 1"> </div>        
+      <div style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1); width: 337px; opacity: 1;" class="portfolio-item one-four   {{$item->filter}} isotope-item">
+        <div class="portfolio_img"> 
+          {!! Html::image('img/'.$item->images, $item->name) !!}
+          <!-- <img src="img/portfolio_pic1.jpg"  alt="Portfolio 1">  -->
+        </div>        
         <div class="item_overlay">
           <div class="item_info"> 
-            <h4 class="project_name">SMS Mobile App</h4>
-          </div>
-        </div>
-        </div>
-      <!--/Portfolio Item --> 
-      
-      <!-- Portfolio Item-->
-      <div style="position: absolute; left: 0px; top: 0px; transform: translate3d(337px, 0px, 0px) scale3d(1, 1, 1); width: 337px; opacity: 1;" class="portfolio-item one-four  design isotope-item">
-        <div class="portfolio_img"> <img src="img/portfolio_pic2.jpg" alt="Portfolio 1"> </div>
-        <div class="item_overlay">
-          <div class="item_info"> 
-            <h4 class="project_name">Finance App</h4>
+            <h4 class="project_name">{{$item->name}}</h4>
           </div>
         </div>
       </div>
       <!--/Portfolio Item --> 
-      
-      <!-- Portfolio Item -->
-      <div style="position: absolute; left: 0px; top: 0px; transform: translate3d(674px, 0px, 0px) scale3d(1, 1, 1); width: 337px; opacity: 1;" class="portfolio-item one-four  design  isotope-item">
-        <div class="portfolio_img"> <img src="img/portfolio_pic3.jpg" alt="Portfolio 1"> </div>
-        <div class="item_overlay">
-          <div class="item_info"> 
-            <h4 class="project_name">GPS Concept</h4>
-          </div>
-        </div>
-      </div>
-      <!--/Portfolio Item--> 
-      
-      <!-- Portfolio Item-->
-      <div style="position: absolute; left: 0px; top: 0px; transform: translate3d(1011px, 0px, 0px) scale3d(1, 1, 1); width: 337px; opacity: 1;" class="portfolio-item one-four  android  prototype web isotope-item">
-        <div class="portfolio_img"> <img src="img/portfolio_pic4.jpg" alt="Portfolio 1"> </div>
-        <div class="item_overlay">
-          <div class="item_info"> 
-            <h4 class="project_name">Shopping</h4>
-          </div>
-        </div>
-      </div>
-      <!-- Portfolio Item --> 
-      
-      <!-- Portfolio Item -->
-      <div style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 240px, 0px) scale3d(1, 1, 1); width: 337px; opacity: 1;" class="portfolio-item one-four  design isotope-item">
-        <div class="portfolio_img"> <img src="img/portfolio_pic5.jpg" alt="Portfolio 1"> </div>
-        <div class="item_overlay">
-          <div class="item_info"> 
-            <h4 class="project_name">Managment</h4>
-          </div>
-        </div>
-      </div>
-      <!--/Portfolio Item --> 
-      
-      <!-- Portfolio Item -->
-      <div style="position: absolute; left: 0px; top: 0px; transform: translate3d(337px, 240px, 0px) scale3d(1, 1, 1); width: 337px; opacity: 1;" class="portfolio-item one-four  web isotope-item">
-        <div class="portfolio_img"> <img src="img/portfolio_pic6.jpg" alt="Portfolio 1"> </div>
-        <div class="item_overlay">
-          <div class="item_info"> 
-            <h4 class="project_name">iPhone</h4>
-          </div>
-        </div>
-      </div>
-      <!--/Portfolio Item --> 
-      
-      <!-- Portfolio Item  -->
-      <div style="position: absolute; left: 0px; top: 0px; transform: translate3d(674px, 240px, 0px) scale3d(1, 1, 1); width: 337px; opacity: 1;" class="portfolio-item one-four  design web isotope-item">
-        <div class="portfolio_img"> <img src="img/portfolio_pic7.jpg" alt="Portfolio 1"> </div>       
-        <div class="item_overlay">
-          <div class="item_info"> 
-            <h4 class="project_name">Nexus Phone</h4>
-          </div>
-        </div>
-       </div>
-      <!--/Portfolio Item --> 
-      
-      <!-- Portfolio Item -->
-      <div style="position: absolute; left: 0px; top: 0px; transform: translate3d(1011px, 240px, 0px) scale3d(1, 1, 1); width: 337px; opacity: 1;" class="portfolio-item one-four   android isotope-item">
-        <div class="portfolio_img"> <img src="img/portfolio_pic8.jpg" alt="Portfolio 1"> </div>       
-        <div class="item_overlay">
-          <div class="item_info"> 
-                <h4 class="project_name">Android</h4>
-          </div>
-        </div>
-        </a> </div>
-      <!--/Portfolio Item --> 
+      @endforeach
       
     </div>
     <!--/Portfolio Wrapper --> 
@@ -252,26 +151,10 @@
     <div class="clear"></div>
     <div id="project_data"></div>
   </div>
- 
   
 </section>
 <!--/Portfolio --> 
-
-<section class="page_section" id="clients"><!--page_section-->
-  <h2>Clients</h2>
-<!--page_section-->
-<div class="client_logos"><!--client_logos-->
-  <div class="container">
-    <ul class="fadeInRight animated wow">
-      <li><a href="javascript:void(0)"><img src="{{ asset('img/client_logo1.png') }}" alt=""></a></li>
-      <li><a href="javascript:void(0)"><img src="{{ asset('img/client_logo2.png') }}" alt=""></a></li>
-      <li><a href="javascript:void(0)"><img src="{{ asset('img/client_logo3.png') }}" alt=""></a></li>
-      <li><a href="javascript:void(0)"><img src="{{ asset('img/client_logo4.png') }}" alt=""></a></li>
-    </ul>
-  </div>
-</div>
-</section>
-<!--client_logos-->
+@endif
 
 <section class="page_section team" id="team"><!--main-section team-start-->
   <div class="container">

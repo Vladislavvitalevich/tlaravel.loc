@@ -7,7 +7,7 @@ use App\Page;
 use App\Service;
 use App\Partfolio;
 use App\People;
-
+use DB;
 
 
 class IndexController extends Controller
@@ -18,6 +18,8 @@ class IndexController extends Controller
     	$partfolios = Partfolio::all();
     	$services = Service::all();
     	$peoples = People::all();
+
+        $tags = DB::table('partfolios')->distinct()->pluck('filter'); 
 
     	$menu = array();
 
@@ -54,7 +56,13 @@ class IndexController extends Controller
     	];
 		array_push($menu, $item);
     
-    	return view('site.index', compact(['menu','page', 'partfolios', 'services','peoples']));
+    	return view('site.index', compact(['menu',
+                                           'pages', 
+                                           'partfolios', 
+                                           'services',
+                                           'peoples',
+                                           'tags'
+                                       ]));
 
     }
 }
