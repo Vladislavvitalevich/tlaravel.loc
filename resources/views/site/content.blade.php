@@ -1,3 +1,6 @@
+@if($errors->any())
+<h4>{{$errors->first()}}</h4>
+@endif
 
 @if( isset( $pages ) && is_object( $pages )  )
   @foreach( $pages as $k=>$page )
@@ -180,12 +183,7 @@
         <div class="team_box  wow fadeInDown delay-06s">
           <div class="team_box_shadow"><a href="javascript:void(0)"></a></div>
           <img src="img/team_pic2.jpg" alt="">
-          <ul>
-            <li><a href="javascript:void(0)" class="fa fa-twitter"></a></li>
-            <li><a href="javascript:void(0)" class="fa fa-facebook"></a></li>
-            <li><a href="javascript:void(0)" class="fa fa-pinterest"></a></li>
-            <li><a href="javascript:void(0)" class="fa fa-google-plus"></a></li>
-          </ul>
+          
         </div>
         <h3 class="wow fadeInDown delay-06s">Kathren Mory</h3>
         <span class="wow fadeInDown delay-06s">Vice President</span>
@@ -255,11 +253,23 @@
           </ul>
         </div>
         <div class="col-lg-8 wow fadeInLeft delay-06s">
+          @if (count($errors) > 0)
+            <div class="alert alert-danger" style="margin: 0 66px 15px 30px;">
+              <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
+          @endif
           <div class="form">
-            <input class="input-text" type="text" name="" value="Your Name *" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">
-            <input class="input-text" type="text" name="" value="Your E-mail *" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">
-            <textarea class="input-text text-area" cols="0" rows="0" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">Your Message *</textarea>
+          <form action="{{ route('contactUs')}}" method="post">
+            @csrf 
+            <input class="input-text" type="text" name="name" value="Your Name *" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">
+            <input class="input-text" type="text" name="email" value="Your E-mail *" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">
+            <textarea class="input-text text-area" name="text" cols="0" rows="0" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">Your Message *</textarea>
             <input class="input-btn" type="submit" value="send message">
+          </form>
           </div>
         </div>
       </div>
