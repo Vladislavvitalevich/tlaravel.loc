@@ -1,7 +1,3 @@
-@if($errors->any())
-<h4>{{$errors->first()}}</h4>
-@endif
-
 @if( isset( $pages ) && is_object( $pages )  )
   @foreach( $pages as $k=>$page )
     @if( $k % 2 == 0 )

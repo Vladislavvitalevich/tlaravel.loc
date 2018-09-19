@@ -24,8 +24,6 @@ class EmailController extends Controller
     	
     	Mail::to('vladislavvitalevich@gmail.com')->send(new ContactUs($request->all()));
 	    	return redirect()->back(); 
-    	
-
 
     }
 }
